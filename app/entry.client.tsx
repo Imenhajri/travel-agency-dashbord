@@ -4,7 +4,7 @@ import { hydrateRoot } from "react-dom/client";
 import { HydratedRouter } from "react-router/dom";
 
 Sentry.init({
-    dsn: "https://5490ef8c6bcb638779d99e990baa9a90@o4509212149612544.ingest.de.sentry.io/4509212154658896",
+    dsn: "https://b68bcd6f45fce8df24dcff232f1137c8@o4509218988818432.ingest.de.sentry.io/4509219006054480",
 
     // Adds request headers and IP for users, for more info visit:
     // https://docs.sentry.io/platforms/javascript/guides/react-router/configuration/options/#sendDefaultPii
