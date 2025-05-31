@@ -57,130 +57,130 @@ const TravelDetail = ({ loaderData }: Route.ComponentProps) => {
                 </Link>
 
 
-            <section className="container wrapper-md">
-                <header>
-                    <h1 className="p-40-semibold text-dark-100">{name}</h1>
-                    <div className="flex items-center gap-5">
-                        <InfoPill
-                            text={`${duration} day plan`}
-                            image="/assets/icons/calendar.svg"
-                        />
+                <section className="container wrapper-md">
+                    <header>
+                        <h1 className="p-40-semibold text-dark-100">{name}</h1>
+                        <div className="flex items-center gap-5">
+                            <InfoPill
+                                text={`${duration} day plan`}
+                                image="/assets/icons/calendar.svg"
+                            />
 
-                        <InfoPill
-                            text={itinerary?.slice(0,4)
-                                .map((item) => item.location).join(', ') || ''}
-                            image="/assets/icons/location-mark.svg"
-                        />
-                    </div>
-                </header>
+                            <InfoPill
+                                text={itinerary?.slice(0,4)
+                                    .map((item) => item.location).join(', ') || ''}
+                                image="/assets/icons/location-mark.svg"
+                            />
+                        </div>
+                    </header>
 
-                <section className="gallery">
-                    {imageUrls.map((url: string, i: number) => (
-                        <img
-                            src={url}
-                            key={i}
-                            className={cn('w-full rounded-xl object-cover', i === 0
-                                ? 'md:col-span-2 md:row-span-2 h-[330px]'
-                                : 'md:row-span-1 h-[150px]')}
-                        />
-                    ))}
-                </section>
+                    <section className="gallery">
+                        {imageUrls.map((url: string, i: number) => (
+                            <img
+                                src={url}
+                                key={i}
+                                className={cn('w-full rounded-xl object-cover', i === 0
+                                    ? 'md:col-span-2 md:row-span-2 h-[330px]'
+                                    : 'md:row-span-1 h-[150px]')}
+                            />
+                        ))}
+                    </section>
 
-                <section className="flex gap-3 md:gap-5 items-center flex-wrap">
-                    <ChipListComponent id="travel-chip">
-                        <ChipsDirective>
-                            {pillItems.map((pill, i) => (
-                                <ChipDirective
-                                    key={i}
-                                    text={getFirstWord(pill.text)}
-                                    cssClass={`${pill.bg} !text-base !font-medium !px-4`}
-                                />
+                    <section className="flex gap-3 md:gap-5 items-center flex-wrap">
+                        <ChipListComponent id="travel-chip">
+                            <ChipsDirective>
+                                {pillItems.map((pill, i) => (
+                                    <ChipDirective
+                                        key={i}
+                                        text={getFirstWord(pill.text)}
+                                        cssClass={`${pill.bg} !text-base !font-medium !px-4`}
+                                    />
+                                ))}
+                            </ChipsDirective>
+                        </ChipListComponent>
+
+                        <ul className="flex gap-1 items-center">
+                            {Array(5).fill('null').map((_, index) => (
+                                <li key={index}>
+                                    <img
+                                        src="/assets/icons/star.svg"
+                                        alt="star"
+                                        className="size-[18px]"
+                                    />
+                                </li>
                             ))}
-                        </ChipsDirective>
-                    </ChipListComponent>
 
-                    <ul className="flex gap-1 items-center">
-                        {Array(5).fill('null').map((_, index) => (
+                            <li className="ml-1">
+                                <ChipListComponent>
+                                    <ChipsDirective>
+                                        <ChipDirective
+                                            text="4.9/5"
+                                            cssClass="!bg-yellow-50 !text-yellow-700"
+                                        />
+                                    </ChipsDirective>
+                                </ChipListComponent>
+                            </li>
+                        </ul>
+                    </section>
+
+                    <section className="title">
+                        <article>
+                            <h3>
+                                {duration}-Day {country} {travelStyle} Trip
+                            </h3>
+                            <p>{budget}, {groupType} and {interests}</p>
+                        </article>
+
+                        <h2>{estimatedPrice}</h2>
+                    </section>
+
+                    <p className="text-sm md:text-lg font-normal text-dark-400">{description}</p>
+
+                    <ul className="itinerary">
+                        {itinerary?.map((dayPlan: DayPlan, index: number) => (
                             <li key={index}>
-                                <img
-                                    src="/assets/icons/star.svg"
-                                    alt="star"
-                                    className="size-[18px]"
-                                />
+                                <h3>
+                                    Day {dayPlan.day}: {dayPlan.location}
+                                </h3>
+
+                                <ul>
+                                    {dayPlan.activities.map((activity, index: number) => (
+                                        <li key={index}>
+                                            <span className="flex-shring-0 p-18-semibold">{activity.time}</span>
+                                            <p className="flex-grow">{activity.description}</p>
+                                        </li>
+                                    ))}
+                                </ul>
                             </li>
                         ))}
-
-                        <li className="ml-1">
-                            <ChipListComponent>
-                                <ChipsDirective>
-                                    <ChipDirective
-                                        text="4.9/5"
-                                        cssClass="!bg-yellow-50 !text-yellow-700"
-                                    />
-                                </ChipsDirective>
-                            </ChipListComponent>
-                        </li>
                     </ul>
-                </section>
 
-                <section className="title">
-                    <article>
-                        <h3>
-                            {duration}-Day {country} {travelStyle} Trip
-                        </h3>
-                        <p>{budget}, {groupType} and {interests}</p>
-                    </article>
+                    {visitTimeAndWeatherInfo.map((section) => (
+                        <section key={section.title} className="visit">
+                            <div>
+                                <h3>{section.title}</h3>
 
-                    <h2>{estimatedPrice}</h2>
-                </section>
-
-                <p className="text-sm md:text-lg font-normal text-dark-400">{description}</p>
-
-                <ul className="itinerary">
-                    {itinerary?.map((dayPlan: DayPlan, index: number) => (
-                        <li key={index}>
-                            <h3>
-                                Day {dayPlan.day}: {dayPlan.location}
-                            </h3>
-
-                            <ul>
-                                {dayPlan.activities.map((activity, index: number) => (
-                                    <li key={index}>
-                                        <span className="flex-shring-0 p-18-semibold">{activity.time}</span>
-                                        <p className="flex-grow">{activity.description}</p>
-                                    </li>
-                                ))}
-                            </ul>
-                        </li>
+                                <ul>
+                                    {section.items?.map((item) => (
+                                        <li key={item}>
+                                            <p className="flex-grow">{item}</p>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        </section>
                     ))}
-                </ul>
 
-                {visitTimeAndWeatherInfo.map((section) => (
-                    <section key={section.title} className="visit">
-                        <div>
-                            <h3>{section.title}</h3>
-
-                            <ul>
-                                {section.items?.map((item) => (
-                                    <li key={item}>
-                                        <p className="flex-grow">{item}</p>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                    </section>
-                ))}
-
-                <a href={paymentLink} className="flex">
-                    <ButtonComponent className="button-class" type="submit">
+                    <a href={paymentLink} className="flex">
+                        <ButtonComponent className="button-class" type="submit">
                         <span className="p-16-semibold text-white">
                             Pay to join the trip
                         </span>
-                        <span className="price-pill">{estimatedPrice}</span>
-                    </ButtonComponent>
-                </a>
+                            <span className="price-pill">{estimatedPrice}</span>
+                        </ButtonComponent>
+                    </a>
 
-            </section>
+                </section>
             </div>
 
             <section className="flex flex-col gap-6">
